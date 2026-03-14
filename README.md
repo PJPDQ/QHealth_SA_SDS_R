@@ -1,50 +1,21 @@
-# Senior Data Scientist (A06) — Skills Assessment
+# QHealth Skill Assessment (AO6)
 
-This repository contains the skills assessment for the position of **Senior Data Scientist (A06)**  Queensland Health (QH-PH676356).
+The following repository contains the solutions of the tasks provided by Queensland Health. The software is designed to meet the requirement for tidy-focused data cleaning, understanding trends in the data, communicate the output, understand query relational databases and demonstrate the fluency in git version control and basic sys-admin tasks.
 
+# Quick Start
 
----
+## Prerequistes
+- **RStudio** 2026.01.1 Build 403 (Recommended)
+- **R** 4.5.3
 
-## Purpose
-
-This assessment is designed to evaluate a candidate's ability to:
-
-1. Clean and wrangle real-world, messy health data
-2. Understand and communicate trends in data
-3. Produce publication-ready analytical output
-4. Understand a relational database and construct SQL queries
-5. Use git version control and undertake basic sysadmin tasks
-
----
-
-## Instructions
-
-Instructions are detailed in the file `R/Instructions.html` (Or view the RMD version `R/Instructions.RMD`)
-
----
-
-## Estimated Time
-
-| Task | Description | Estimate |
-|------|-------------|----------|
-| 1 | Data wrangling, figures, narrative, reflection | 2-2.5 hrs |
-| 2 | Function writing with validation and documentation | 30 min |
-| 3 | Three SQL/Database questions | 30 min |
-| 4 | Six git/bash/sysadmin questions | 30 min |
-| **Total time required to complete assessment** | | **~4 hrs** |
-
----
-
-## Submission
-
-Return your completed work **by 10am Monday 16th March 2026** via either: 
-
-- A link to your **public GitHub repository** containing all scripts, the output report, and answers  
-- A **zipped folder** emailed to: shelly.lachish@health.qld.gov.au  
-
-Tasks are independent and can be completed in any order.
-
-
-## Queries
-Any questions can be directed to shelly.lachish@health.qld.gov.au
+## Build 
+```{bash}
+git clone https://github.com/PJPDQ/QHealth_SA_SDS_R.git
+cd output
+```
+To start R in project directory and restore the dependencies based on the available `renv.lock`
+```{R}
+install.packages("renv")
+renv::restore()
+```
 
