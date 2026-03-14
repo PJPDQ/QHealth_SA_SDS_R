@@ -23,7 +23,7 @@ workdir <- "./Work/P/QHealth_SA_SDS_R/"
 filename <- paste(workdir, "input/ABS_death_australia_remotenessareas.xlsx", sep="")
 sheetname <- "Table 1"
 save_name <- paste(workdir, "output/ABS_death_australia_remotenessareas_tidy.csv", sep="")
-html_name <- paste(workdir, "output/MortalityRate_Queensland_v_Australia.html", sep="")
+html_name <- paste(workdir, "output/assets/MortalityRate_Queensland_v_Australia.html", sep="")
 
 # Read excel spreadsheet
 df_raw <- read_excel(filename, sheet = sheetname, skip=5)
@@ -157,7 +157,7 @@ p2 <- ggplot(cross_sec,
     y = "Mortality rate (%)"
   )
 pltly_gg2 <- ggplotly(p2, tooltip = "text")
-html_name2 <- paste(workdir, "output/2024MortalityRate_Queensland_v_Australia.html", sep="")
+html_name2 <- paste(workdir, "output/assets/2024MortalityRate_Queensland_v_Australia.html", sep="")
 saveWidget(pltly_gg2, file = html_name2)
 pltly_gg2
 
@@ -175,7 +175,7 @@ p3 <- ggplot(cross_sec,
           y = "Mortality rate (%)"
     )
 pltly_gg3 <- ggplotly(p3, tooltip = "text")
-html_name3 <- paste(workdir, "output/2011-2024Average_MortalityRate_Queensland_v_Australia.html", sep="")
+html_name3 <- paste(workdir, "output/assets/2011-2024Average_MortalityRate_Queensland_v_Australia.html", sep="")
 saveWidget(pltly_gg3, file = html_name3)
 pltly_gg3
 
