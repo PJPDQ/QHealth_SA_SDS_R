@@ -32,3 +32,4 @@ You can find the results in the `output\` folder for all the tasks.
 - `ABS_death_australia_remotenessareas_tidy.csv`: the tidy-cleaned data.
 - `TASK3.pdf`: Databases/ SQL Responses
 - `TASK4.pdf`: Git/ Bash/ SysAdmin Response.
+- `assets\`: Contains the plotly and pngs diagrams that is used as visualization to support my brief evidence-based report.
