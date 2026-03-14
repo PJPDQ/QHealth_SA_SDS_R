@@ -1,0 +1,131 @@
+---
+title: "Senior Data Scientist (A06) — Skills Assessment"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: flatly
+    code_folding: show
+---
+
+## **General instructions:**
+
+The following four tasks are designed to evaluate your ability to:
+
+1.  Clean and wrangle real-world, messy health data
+2.  Understand trends in data
+3.  Produce communicable output
+4.  Understand and query relational databases
+5.  Use git version control and undertake basic sys-admin tasks
+
+Ideally you will return your finished work via a link to your public GitHub repository where the scripts, output report, and answers to questions reside (email repo URL to: shelly.lachish\@health.qld.gov.au). Alternatively you may email a zipped folder containing the required scripts and output to shelly.lachish\@health.qld.gov.au.
+
+Notes that these four tasks are independent of each other and can be completed in any order. If you are spending significant time on Task 1, move on and return to it — we are interested in seeing your approach across all four areas.
+
+------------------------------------------------------------------------
+
+## TASK ONE – Data wrangling, ETL, and communication
+
+-   You will be working with the file `ABS_death_australia_remotenessareas.xlsx` that can be found in the `/input` folder of this repo.
+-   We would like you to **write R code** to clean/wrangle the data in the excel file to **produce a "tidy" dataset** (see [this vignette](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html) for an overview of what tidy data is). Please **save your tidy dataset** in the `/output` folder as a csv file.
+-   Using your tidy dataset, **produce a** **brief report** containing figures that describes how mortality rates vary by remoteness area and over time, explicitly comparing Queensland to Australia.
+
+### The data
+
+The excel file for this task (found in this repo at `/input/ABS_death_australia_remotenessareas.xlsx`) is sourced from the Australian Bureau of Statistics (ABS; https://www.abs.gov.au/statistics/people/population/deaths-australia/2024/33020DO006_2024.xlsx) and contains mortality statistics for Australia and its states by remoteness area. The data are on the sheet named `Table 1`.
+
+Remoteness Areas divide Australia into five classes of remoteness on the basis of a measure of relative access to services (see [ARIA classification](https://www.abs.gov.au/statistics/standards/australian-statistical-geography-standard-asgs-edition-3/jul2021-jun2026/remoteness-structure)).
+
+The five remoteness classes are: Major Cities, Inner Regional, Outer Regional, Remote and Very Remote.
+
+Please retain only these in your final dataset (the others are amalgamations of these categories).
+
+``` r
+c("Major Cities", "Inner Regional", "Outer Regional", "Remote", "Very Remote")
+```
+
+### Data Ingestion and Tidying
+
+Using R code, read in the raw data and produce a tidy, analysis-ready dataset (a tidy dataset has one observation per row, one variable per column, and one value per cell).
+
+-   All suppressed, unavailable, or non-numeric values should be handled appropriately.
+-   Intermediate steps should be clearly commented in the code.
+
+> **Hint:** The raw Excel file has a complex multi-row header structure that will likely require several transformation steps before the data can be further processed. Inspect the raw data carefully before proceeding.
+
+### Interpretation and communication
+
+Using your tidy dataset, produce a brief report (2-3 paragraphs, approximately 500 words) that describes how mortality rates vary by remoteness area and over time, comparing Queensland to Australia overall.
+
+-   Use the most appropriate metric available in the data for comparing mortality across remoteness categories and between Queensland and Australia. Briefly justify your choice in 1–2 sentences.
+-   Produce at least **two figures** that together communicate both the cross-sectional pattern (across remoteness categories) and any temporal trends. (Figures should have appropriate titles, axis labels, and legends)
+-   Write a short narrative interpretation (2-3 paragraphs, 500 words) of the key findings from your figures.
+
+### Reflection Question
+
+**Q1.** If this pipeline were to run automatically each time a new annual release was published by the ABS, what aspects of your current code would be fragile or likely to break, and how would you address them?
+
+------------------------------------------------------------------------
+
+## TASK TWO – Function Writing & Code Quality
+
+Using your tidy dataset from the previous step as your test/working input data, **write an R function** that recodes the values of one of the column variables and which can be used across other datasets that contain that variable. For example - you could write a function that recodes remoteness area category names to standard abbreviations (e.g. Major Cities --\> MC) which would be useful for labelling figures or maps.
+
+The function should accept a data frame as input, return a dataframe (with the renamed column), and otherwise exhibit best practices for function writing.
+
+------------------------------------------------------------------------
+
+## TASK THREE – Databases / SQL
+
+The file `/input/health_db_schema.jpg` (shown below) provides a schema of a simplified public health surveillance database. This is a fictional but realistic small database that might exist within a state health department.
+
+![](images/health_db_schema.jpg)
+
+Notes on the schema:
+
+-   patient.lga_code and facility.lga_code both reference a Local Government Area but there is no formal lga lookup table in this schema (see Q1).
+-   separation_mode encodes how the admission ended: 'discharge', 'death', 'transfer', 'left_against_advice'.
+-   drg_code is an AR-DRG code (Australian Refined Diagnosis Related Group).
+-   remoteness in facility uses the 5-category ARIA classification.
+-   all dates are stored as DATE type (YYYY-MM-DD).
+
+**Q1.** In this schema, `patient.lga_code` and `facility.lga_code` both reference a Local Government Area, but there is no formal LGA lookup table in the database. What are the risks/consequences of this design decision, and what would you do about it in an analytical context?
+
+**Q2.** An epidemiologist who runs queries against this database to filter admissions by admission_date reports to you that her queries are running slowly on a table with 5 million rows. What could you do to speed up these queries and why?
+
+**Q3.** If you were asked: “*How many admissions in 2023 occurred in Very Remote Queensland facilities?*” Conceptually, outline which tables are involved and what considerations would you need to be careful about? (No need to write SQL — just explain your reasoning).
+
+------------------------------------------------------------------------
+
+## TASK FOUR – Git / Bash / SysAdmin
+
+**Q1.** A colleague runs git status and sees the following output:
+
+```         
+On branch main
+Changes not staged for commit:
+  modified:   R/clean.R
+
+Untracked files:
+  data/raw/new_file.csv
+```
+
+They run `git commit -m "update cleaning script"` immediately. What happens?
+
+**Q2.** You are on branch `feature/new-plot` and run `git merge main`. Git reports a merge conflict in the script `R/analysis.R`. What is the the right course of action?
+
+**Q3.** You are one of three data scientists collaborating on an analytical pipeline in a shared GitHub repository. Describe the branching and pull request workflow you would follow to add a new feature (e.g. a new visualisation function in R/plots.R) without disrupting your colleagues' work on main.
+
+**Q4.** A colleague has accidentally committed a file containing a database password (`config/db_credentials.R`) and pushed it to the remote `main` branch. Describe the steps you would take to remediate this situation.
+
+**Q5.** A colleague runs `ls -l` and sees the following for a script file:
+
+`-rwxr-x--- 1 jsmith analysts 4096 Feb 10 09:32 run_pipeline.sh`
+
+Describe the permissions on this file?
+
+**Q6.** A new analyst joins your team. They have attempted to run a script that lives in `/our_team_server/shared/run_analysis.R` and they receive a `Permission denied` error. Explain how you would go about diagnosing and solving the issue here.
+
+------------------------------------------------------------------------
+
+*Good luck. We look forward to reviewing your submission.*
