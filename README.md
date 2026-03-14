@@ -25,3 +25,10 @@ renv::restore()
 source (".\R\solutions\TASK1.R")
 source (".\R\solutions\TASK2.R")
 ```
+
+## Results
+You can find the results in the `output\` folder for all the tasks.
+- `TASK1_report.pdf`: the brief report describing how mortality rates vary by remoteness area and over time between Queensland and Australia.
+- `ABS_death_australia_remotenessareas_tidy.csv`: the tidy-cleaned data.
+- `TASK3.pdf`: Databases/ SQL Responses
+- `TASK4.pdf`: Git/ Bash/ SysAdmin Response.
