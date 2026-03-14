@@ -23,4 +23,5 @@ renv::restore()
 ### To run the solutions, you can find them in `.\R\solutions`
 ```{R}
 source (".\R\solutions\TASK1.R")
+source (".\R\solutions\TASK2.R")
 ```
